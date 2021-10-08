@@ -27,8 +27,29 @@ const createPostElement = (thumbnail, post) => {
   );
 };
 
-const renderPosts = async () => {
-  // EDIT HERE
-};
+export const renderPosts = async() => {
+  try {
+    let res = await user.get('/posts');
+    let posts = res.data;
+    // this will re render the view with new data
+    this.setState({
+      Posts: posts.map((post, i) => (
+        <li key={i} className="list-group-item">{post.text}</li>
+      ))
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+function render() {
+  return (
+    <div>
+      <ul className="list-group list-group-flush">
+        {this.user.Posts}
+      </ul>
+    </div>
+  );
+}
 
 renderPosts();
