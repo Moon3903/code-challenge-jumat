@@ -39,13 +39,22 @@ const renderPost = async () => {
         console.log("masuk");
 
         let getPost = await(helper.getPost());
+        console.log(getPost.author);
 
-        elCardImg.src = await(getPost.randomPic);
-        elCardAuthorImg.src = await(getPost.randomProfile);
+        if(getPost.randomPic === undefined ||
+            getPost.randomProfile === undefined||
+            getPost.commentList === undefined||
+            getPost.detail.title === undefined||
+            getPost.author.name === undefined){
+                throw("err");
+            }
+
+        elCardImg.src = getPost.randomPic;
+        elCardAuthorImg.src = getPost.randomProfile;
     
-        let commentList = await(getPost.commentList);
+        let commentList = getPost.commentList;
 
-        console.log(getPost.detail);
+        // console.log(getPost.detail);
         for(let i=0; i<commentList.length;i++){
             const newComment = createListElement(commentList[i]);
             elListGroup.appendChild(newComment);
