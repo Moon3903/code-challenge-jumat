@@ -1,5 +1,14 @@
 import * as helper from "./helper.js"
-const params = await(helper.getPost());
+
+let idNum = 69 //default
+
+const queryString = window.location.search;
+if(queryString)
+    idNum = queryString.substring(1);
+console.log(idNum);
+
+const params = await(helper.getPost(idNum));
+
 
 const elPageTitle = document.querySelector('#page-title');
 const elDetailBerita = document.querySelector('#detail-berita');

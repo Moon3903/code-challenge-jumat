@@ -6,7 +6,7 @@ export const getPost = async (post_id) => {
     // EDIT HERE
     let postDetail;
     try {
-        postDetail = await fetch('https://jsonplaceholder.typicode.com/posts/'+Math.floor(Math.random() * 100));
+        postDetail = await fetch('https://jsonplaceholder.typicode.com/posts/'+post_id);
     } catch (error) {
         console.log('getPost', error);
         throw error;
