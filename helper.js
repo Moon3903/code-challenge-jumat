@@ -18,10 +18,33 @@ export const getPosts = async () => {
 
 export const getPost = async (post_id) => {
     // EDIT HERE
+    let postDetail;
+    try {
+        postDetail = await fetch('https://jsonplaceholder.typicode.com/posts/'+Math.floor(Math.random() * 100));
+    } catch (error) {
+        console.log('getPost', error);
+        throw error;
+    }
+
+    let obj = {
+        randomPic : await(getRandomPic()),
+        randomProfile : await(getRandomProfile()),
+        commentList : await(getPostComments()),
+        detail : await(postDetail.json()),
+        author : await(getAuthor())
+    }
+    return obj;
 };
 
 export const getPostComments = async (post_id) => {
     // EDIT HERE
+    try {
+        const commentList = await fetch('https://jsonplaceholder.typicode.com/posts/1/comments');
+        return commentList.json();
+    } catch (error) {
+        console.log('getPost', error);
+        throw error;
+    }
 };
 
 export const getAuthor = async (user_id) => {

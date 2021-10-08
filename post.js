@@ -1,4 +1,5 @@
-const params; // tempat menampung parameter yang ada
+import * as helper from "./helper.js"
+const params = await(helper.getPost());
 
 const elPageTitle = document.querySelector('#page-title');
 const elDetailBerita = document.querySelector('#detail-berita');
@@ -23,6 +24,7 @@ const createListElement = (comment) => {
 
     elListItemTitle.innerHTML = comment.email;
     elListItemText.innerHTML = comment.body;
+    // console.log(comment.email + "\n" + comment.body);
 
     elListItemContainer.appendChild(elListItemTitle);
     elListItemContainer.appendChild(elListItemText);
@@ -32,7 +34,45 @@ const createListElement = (comment) => {
 };
 
 const renderPost = async () => {
-    // EDIT HERE
-};
+    // EDIT HERE 
+    try {
+        // console.log("masuk");
 
+        // console.log(params.author);
+
+        if(params.randomPic === undefined ||
+            params.randomProfile === undefined||
+            params.commentList === undefined||
+            params.detail.title === undefined||
+            params.author.name === undefined){
+                throw("err");
+            }
+
+        elCardImg.src = params.randomPic;
+        elCardAuthorImg.src = params.randomProfile;
+    
+        let commentList = params.commentList;
+
+        // console.log(params.detail);
+        for(let i=0; i<commentList.length;i++){
+            const newComment = createListElement(commentList[i]);
+            elListGroup.appendChild(newComment);
+            // console.log(commentList[i]);
+        }
+        elPageTitle.innerText = params.detail.title;
+        elCardText.innerText = params.detail.body;
+
+        elCardAuthorName.innerText = params.author.name;
+        elCardAuthorEmail.innerText = params.author.email;
+
+        elLoading.classList.add("d-none");
+        elDetailBerita.classList.remove("d-none");
+    }
+    catch{
+        elLoading.classList.add("d-none");
+        elNotFound.classList.remove("d-none");
+        console.log('post', error);
+        throw error;
+    }
+};
 renderPost();
