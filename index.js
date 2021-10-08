@@ -1,4 +1,4 @@
-import { getPosts, getRandomPic } from './helpers.js';
+import * as helpers from './helper.js';
 
 const elDaftarBerita = document.querySelector('#daftar-berita');
 
@@ -25,6 +25,10 @@ const createPostElement = (thumbnail, post) => {
 
   elCardImg.setAttribute('alt', 'skilvul');
   elCardBtn.innerHTML = 'Read More';
+  elCardImg.src = thumbnail;
+  elCardBody.innerText = post.title;
+  elCardBtn.href = "post.html?" + post.id;
+  console.log(post);
 
   elCardBody.appendChild(elCardTitle);
   elCardBody.appendChild(elCardBtn);
@@ -33,12 +37,19 @@ const createPostElement = (thumbnail, post) => {
   elCol.appendChild(elCard);
 
   // EDIT HERE
-
+  
   return elCol;
 };
 
 const renderPosts = async () => {
   // EDIT HERE
+  let getPosts = await (helpers.getPosts());
+
+  for (let i = 0; i < 16; i++){
+    const newElement = createPostElement(await (helpers.getRandomPic()), getPosts[i]);
+    elDaftarBerita.appendChild(newElement);
+    
+  }
 };
 
 renderPosts();
