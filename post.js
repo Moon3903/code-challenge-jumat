@@ -33,7 +33,8 @@ const createListElement = (comment) => {
 
     elListItemTitle.innerHTML = comment.email;
     elListItemText.innerHTML = comment.body;
-    // console.log(comment.email + "\n" + comment.body);
+    elCardAuthorName.href = "author.html?"+params.author.id;
+    
 
     elListItemContainer.appendChild(elListItemTitle);
     elListItemContainer.appendChild(elListItemText);
