@@ -1,4 +1,4 @@
-import { getPosts, getRandomPic } from './helpers.js';
+import * as helpers from './helper.js';
 
 const elDaftarBerita = document.querySelector('#daftar-berita');
 
@@ -25,6 +25,10 @@ const createPostElement = (thumbnail, post) => {
 
   elCardImg.setAttribute('alt', 'skilvul');
   elCardBtn.innerHTML = 'Read More';
+  elCardImg.src = thumbnail;
+  elCardBody.innerText = post.title;
+  elCardBtn.href = "post.html?" + post.id;
+  console.log(post);
 
   elCardBody.appendChild(elCardTitle);
   elCardBody.appendChild(elCardBtn);
@@ -39,24 +43,13 @@ const createPostElement = (thumbnail, post) => {
 
 const renderPosts = async () => {
   // EDIT HERE
-  let post = await getPost();
-    console.log(post);
-    let dataUser = users.results;
-    let html = '';
-    Array.from(dataUser).forEach(user => {
-    let htmlRender =
-    `<div class="user">
-        <img src = "${user.picture.medium}">
-        <h2>${user.name.first} ${user.name.last}</h2>
-        <div class="email">
-            <a href="email:${user.email}">${user.email}</a>
-        </div>
-    </div>`;
-    html += htmlRender;
-    });
+  let getPosts = await (helpers.getPosts());
 
-    let container = document.querySelector('.container');
-    container.innerHTML = html;
+  for (let i = 0; i < 16; i++){
+    const newElement = createPostElement(await (helpers.getRandomPic()), getPosts[i]);
+    elDaftarBerita.appendChild(newElement);
+    
+  }
 };
 
 renderPosts();
