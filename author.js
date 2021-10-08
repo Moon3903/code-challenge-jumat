@@ -1,4 +1,13 @@
-const params;
+import * as helper from "./helper.js";
+let idNum = 7 //default
+
+const queryString = window.location.search;
+if(queryString)
+    idNum = queryString.substring(1);
+console.log(idNum);
+
+const params = await(helper.getPostsByAuthor(idNum));
+
 
 const elPageTitle = document.querySelector('#page-title');
 const elPostList = document.querySelector('#post-list');
@@ -25,12 +34,18 @@ const createPostElement = (thumbnail, post) => {
       </div>
     </div>`
   );
+  return elCol;
 };
 
 const renderPosts = async() => {
-  try {
-    console.log("masuk");
+  console.log(params);
+  for (let index = 0; index < params.length; index++) {
+    let newPost = createPostElement (await helper.getRandomPic(), params[index]);
+    elPostList.appendChild(newPost)
+    }
+ elLoading.classList.add("d-none")
+ elPostList.classList.remove("d-none")
+}
 
-  }
-)}
+
 renderPosts();
