@@ -27,8 +27,10 @@ const createPostElement = (thumbnail, post) => {
   );
 };
 
-const renderPosts = async () => {
-  // EDIT HERE
-};
+const renderPosts = async() => {
+  try {
+    console.log("masuk");
 
+  }
+)}
 renderPosts();
