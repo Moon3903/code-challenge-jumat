@@ -4,7 +4,7 @@ let idNum = 69 //default
 
 const queryString = window.location.search;
 if(queryString)
-    idNum = queryString.substring(1);
+    idNum = queryString.substring(9);
 console.log(idNum);
 
 const params = await(helper.getPost(idNum));
