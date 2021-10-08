@@ -27,7 +27,7 @@ const createPostElement = (thumbnail, post) => {
   elCardBtn.innerHTML = 'Read More';
   elCardImg.src = thumbnail;
   elCardBody.innerText = post.title;
-  elCardBtn.href = "post.html?" + post.id;
+  elCardBtn.href = "post.html?post_id=" + post.id;
   console.log(post);
 
   elCardBody.appendChild(elCardTitle);
